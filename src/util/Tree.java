@@ -8,6 +8,8 @@ public class Tree {
     public static void main(String[] args) {
         Tree t = new Tree("0");
         t.add(t, "bee", 0, "storage");
+        String s = t.remove(t, "bee", 0);
+        System.out.println(s);
     }
 
     public Tree(String item) {
@@ -22,18 +24,15 @@ public class Tree {
             char chara = s.charAt(index);
             //Convert character to integer
             int charAt = ((int) chara) - 97;
-            System.out.println(chara);
-            System.out.println(charAt);
             //Take integer and add string from character and beyond as content
             if(curr.nodes[charAt] == null) {
-                curr.nodes[charAt] = new Tree(s.substring(0, index));
+                curr.nodes[charAt] = new Tree(s.substring(0, index+1));
             }
             curr = curr.nodes[charAt];
             index += 1; 
             //Base case
             if(s.length() == index) {
                 curr.contents = contents;
-                System.out.println(contents);
                 return true;
             } else {
                 return add(curr, s, index, contents);
@@ -41,6 +40,25 @@ public class Tree {
         } catch(Exception e) {
             System.out.println(e);
             return false;
+        }
+    }
+
+    //Pass in root node, s as the string to remove, and an index of 0 for recursion
+    public String remove(Tree curr, String s, int index) {
+        try {
+            curr = curr.nodes[s.charAt(index)-97];
+            index += 1;
+            if(s.equals(curr.label)) {
+                String con = curr.contents;
+                curr.contents = null;
+                return con;
+            } else {
+                return remove(curr, s, index);
+            }
+        } catch(Exception e) {
+            //No character at that index
+            System.out.println(e);
+            return null;
         }
     }
 }
