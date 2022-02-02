@@ -1,4 +1,5 @@
 package util;
+import java.util.ArrayList;
 
 public class Tree {
     String label;
@@ -6,10 +7,17 @@ public class Tree {
     String contents;
 
     public static void main(String[] args) {
-        Tree t = new Tree("0");
+        Tree t = new Tree(null);
         t.add(t, "bee", 0, "storage");
-        String s = t.remove(t, "bee", 0);
-        System.out.println(s);
+        t.add(t, "apple", 0, "kevin");
+        t.add(t, "butter", 0, "allie");
+        t.add(t, "zed", 0, "butter");
+        //String s = t.remove(t, "bee", 0);
+        //System.out.println(s);
+        ArrayList<Tree> pr = t.traverse(new ArrayList<Tree>(), t);
+        for(int i = 0; i < pr.size(); i++) {
+            System.out.println(pr.get(i).label);
+        }
     }
 
     public Tree(String item) {
@@ -60,5 +68,25 @@ public class Tree {
             System.out.println(e);
             return null;
         }
+    }
+
+    //Pass in empty arraylist, and root or desired subtree,
+    public ArrayList<Tree> traverse(ArrayList<Tree> ret, Tree curr) {
+        //Check if not root, because root has no label
+        if(curr.label != null) {
+            if(curr.contents != null) {
+                ret.add(curr);
+            }
+        }
+        for(int i = 0; i < curr.nodes.length; i++) {
+            try {
+                ret = traverse(ret, curr.nodes[i]);
+            } catch(Exception e) {
+                //Nothing to traverse
+                continue;
+            }
+        }
+        //Base case, return ret list
+        return ret;
     }
 }
