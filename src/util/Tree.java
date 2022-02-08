@@ -6,7 +6,8 @@ public class Tree {
     Tree[] nodes;
     String contents;
 
-    public static void main(String[] args) {
+    //Testing suite
+    /*public static void main(String[] args) {
         Tree t = new Tree(null);
         t.add(t, "bee", 0, "storage");
         t.add(t, "apple", 0, "kevin");
@@ -18,7 +19,7 @@ public class Tree {
         for(int i = 0; i < pr.size(); i++) {
             System.out.println(pr.get(i).label);
         }
-    }
+    }*/
 
     public Tree(String item) {
         label = item;
@@ -75,6 +76,7 @@ public class Tree {
         //Check if not root, because root has no label
         if(curr.label != null) {
             if(curr.contents != null) {
+                //TODO CONSIDER SWAPPING FOR DICTIONARY TO STORE K:V PAIRS INSTEAD
                 ret.add(curr);
             }
         }
